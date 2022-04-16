@@ -7,7 +7,7 @@ function GetBlob(key) {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/b/${key}`)
+    fetch(`https://blob-api-go.herokuapp.com/b/${key}`)
     .then(response => response.json())
     .then(response => {
       setValue(response.Value);

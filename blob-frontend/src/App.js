@@ -39,7 +39,7 @@ function NewBlob(){
 function CallCreateBlob(){
   let val = document.querySelector('textarea').value;
   let json = `{"Value":"${val}"}`;
-  fetch('http://localhost:8000/b/', { method: 'POST', body: json})
+  fetch('https://blob-api-go.herokuapp.com/b/', { method: 'POST', body: json})
   .then(response => response.json())
   .then(response => {
     console.log(response);
