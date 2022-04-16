@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+textarea {
+  height: 70vh;
+  width: 99%;
+}
+
+.sans-serif {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.center {
+  display: flex;
+  justify-content: center;
+}
+p {
+  font-size: 1em;
+}
+h1 {
+  font-family: 'Bitter', serif;
+  font-size: 4em;
+}
