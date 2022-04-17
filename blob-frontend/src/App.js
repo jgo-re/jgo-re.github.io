@@ -27,15 +27,18 @@ function NewBlob(){
   console.log("New Blob");
   return (
       <>
-      <p>Save a blob of text for 15 mins by entering it in the box below and pressing save.</p>
+      <p>Save a blob of text for 15 mins by entering it in the box below and pressing 'Save Blob'.</p>
       <textarea/>
-      <button onClick={CallCreateBlob}>Create Blob</button>
+      <button onClick={CallCreateBlob}>Save Blob</button>
       </>
   );
 }
 
 function CallCreateBlob(){
   let val = document.querySelector('textarea').value;
+  if(val == '')
+    return;
+
   let json = `{"Value":"${encodeURI(val)}"}`;
   fetch('https://blob-api-go.herokuapp.com/b/', { method: 'POST', body: json})
   .then(response => response.json())
@@ -59,5 +62,26 @@ function ViewBlob(key){
     window.location = `/`;
   } 
 
-  return <textarea value={value} readOnly={false}/>;
+  return (
+    <>
+    <textarea value={value} readOnly={false}/>
+    <div className="wrapper">
+      <button onClick={CopyBlob}>Copy Blob</button><button onClick={MakeNewBlob}>Make New Blob</button><button onClick={CopyLink}>Copy Blob Link</button>
+    </div>
+    </>
+    
+  );
+}
+
+function CopyBlob() {
+  let val = document.querySelector('textarea').value;
+  navigator.clipboard.writeText(val);
+}
+
+function MakeNewBlob() {
+  window.location = `/`;
+}
+
+function CopyLink() {
+  navigator.clipboard.writeText(window.location.href);
 }
