@@ -1,12 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, useSearchParams } from "react-router-dom";
-
+import { BrowserRouter as Router, Routes, Route, useSearchParams } from "react-router-dom";
 import GetBlob from './GetBlob'
-//import CreateBlob from './CreateBlob'
-
 import './App.css';
 
-const App = () => {
-
+export default () => {
   return (
     <Router>
       <Routes>
@@ -15,8 +11,6 @@ const App = () => {
     </Router>
   );
 }
-
-export default App;
 
 function Blob(){
   const [searchParams, setSearchParams] = useSearchParams();
@@ -66,18 +60,3 @@ function ViewBlob(key){
 
   return <textarea value={value} readOnly={false}/>;
 }
-
-// function GetBlob(){
-//   fetch(`https://blob-api-go.herokuapp.com/b/${key}`)
-//     .then(response => response.json())
-//     .then(response => {
-//       setValue(response.Value);
-//     })
-//     .catch(error => {
-//       setError(error);
-//     })
-//     .finally(() => {
-//         setLoading(false);
-//       }
-//     );
-// }
