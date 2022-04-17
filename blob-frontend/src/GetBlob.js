@@ -19,6 +19,7 @@ function GetBlob(key) {
         setLoading(false);
       }
     );
+    
   } , [key]);
 
   return { value, loading, error}

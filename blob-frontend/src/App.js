@@ -1,29 +1,32 @@
-import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, Navigate } from "react-router-dom";
-// import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, useSearchParams } from "react-router-dom";
+
 import GetBlob from './GetBlob'
-import CreateBlob from './CreateBlob'
-// import { Routes, Route, Outlet, Link } from "react-router-dom";
+//import CreateBlob from './CreateBlob'
+
 import './App.css';
 
 const App = () => {
+
   return (
     <Router>
-      {/* <div className="App">
-        <h1 className="nice-font">
-          Blob.
-        </h1>
-      </div> */}
-
-    
       <Routes>
-        <Route path="/" element={<NewBlob/>}/>
-        <Route path="/:key" element={<ViewBlob/>}/>
+        <Route path="/" element={<Blob/>}/>
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
+function Blob(){
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  if (searchParams.has('b')) {
+    return ViewBlob(searchParams.get('b'));
+  }
+
+  return NewBlob();
+}
 
 function NewBlob(){
   console.log("New Blob");
@@ -43,26 +46,38 @@ function CallCreateBlob(){
   .then(response => response.json())
   .then(response => {
     console.log(response);
-    window.location = `/${response}`;
+    window.location = `/?b=${response}`;
   });
 }
 
-function ViewBlob(){
+function ViewBlob(key){
   console.log("View Blob");
-  const { key } = useParams();
-  let navigate = useNavigate();
 
   var {value, loading, error} = GetBlob(key);
   console.log(value);
 
   if (loading){
-    return <textarea value={value}/>
+    return <textarea value={value} readOnly={true}/>
   } 
 
   if (error) {
-    navigate('/', true);
+    window.location = `/`;
   } 
 
-  return <textarea value={value}/>;
+  return <textarea value={value} readOnly={false}/>;
 }
 
+// function GetBlob(){
+//   fetch(`https://blob-api-go.herokuapp.com/b/${key}`)
+//     .then(response => response.json())
+//     .then(response => {
+//       setValue(response.Value);
+//     })
+//     .catch(error => {
+//       setError(error);
+//     })
+//     .finally(() => {
+//         setLoading(false);
+//       }
+//     );
+// }
