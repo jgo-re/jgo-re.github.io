@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route, useSearchParams } from "react-r
 import GetBlob from './GetBlob'
 import './App.css';
 
+const API_URL = 'https://blob-api-go.herokuapp.com/b/'
+
 export default () => {
   return (
     <Router>
@@ -40,7 +42,7 @@ function CallCreateBlob(){
     return;
 
   let json = `{"Value":"${encodeURI(val)}"}`;
-  fetch('https://blob-api-go.herokuapp.com/b/', { method: 'POST', body: json})
+  fetch(API_URL, { method: 'POST', body: json})
   .then(response => response.json())
   .then(response => {
     console.log(response);
@@ -51,7 +53,7 @@ function CallCreateBlob(){
 function ViewBlob(key){
   console.log("View Blob");
 
-  var {value, loading, error} = GetBlob(key);
+  var {value, loading, error} = GetBlob(key, API_URL);
   console.log(value);
 
   if (loading){
