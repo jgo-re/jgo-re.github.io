@@ -10,7 +10,7 @@ function GetBlob(key) {
     fetch(`https://blob-api-go.herokuapp.com/b/${key}`)
     .then(response => response.json())
     .then(response => {
-      setValue(response.Value);
+      setValue(decodeURI(response.Value));
     })
     .catch(error => {
       setError(error);

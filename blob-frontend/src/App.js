@@ -5,6 +5,7 @@ import './App.css';
 export default () => {
   return (
     <Router>
+      <h1 className="nice-font">Blob.</h1>
       <Routes>
         <Route path="/" element={<Blob/>}/>
       </Routes>
@@ -26,16 +27,16 @@ function NewBlob(){
   console.log("New Blob");
   return (
       <>
-      <textarea defaultValue="Put your blob of text in here ☺."/>
+      <p>Save a blob of text for 15 mins by entering it in the box below and pressing save.</p>
+      <textarea/>
       <button onClick={CallCreateBlob}>Create Blob</button>
       </>
-      
   );
 }
 
 function CallCreateBlob(){
   let val = document.querySelector('textarea').value;
-  let json = `{"Value":"${val}"}`;
+  let json = `{"Value":"${encodeURI(val)}"}`;
   fetch('https://blob-api-go.herokuapp.com/b/', { method: 'POST', body: json})
   .then(response => response.json())
   .then(response => {
